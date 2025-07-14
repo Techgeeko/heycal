@@ -1,10 +1,14 @@
-import type { NextConfig } from "next";
+import withMDX from '@next/mdx';
 
-const nextConfig: NextConfig = {
-  /* config options here */
+const withMDXConfig = withMDX({
+  extension: /\.mdx?$/,
+});
+
+const nextConfig = {
   images: {
     domains: ['i.pravatar.cc'],
-  }
+  },
+  pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'mdx'],
 };
 
-export default nextConfig;
+export default withMDXConfig(nextConfig);
