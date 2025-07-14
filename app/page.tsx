@@ -1,13 +1,20 @@
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import Hero from "@/components/hero";
 import Image from "next/image";
+import Features from "@/components/features";
+import TestimonialSection from "@/components/testimonial";
+import FaqSection from "@/components/faq";
+import PricingSection from "@/components/pricing";
+import FinalCtaSection from "@/components/finalCTA";
+
 
 export default function Home() {
   return (
 
     <>
       <Header />
-      <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+      {/* <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
         <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
           <Image
             className="dark:invert"
@@ -56,7 +63,13 @@ export default function Home() {
             </a>
           </div>
         </main>
-      </div>
+      </div> */}
+      <Hero />
+      <Features/>
+      <TestimonialSection />
+      <FaqSection />
+      <PricingSection />
+      <FinalCtaSection />
       <Footer />
     </>
   );
