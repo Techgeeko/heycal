@@ -161,7 +161,7 @@ export default function TestimonialSection() {
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.3 }}
                 >
-                  "{testimonials[activeIndex].quote}"
+                  &quot;{testimonials[activeIndex].quote}&quot;
                 </motion.p>
 
                 {/* Engagement Stats */}
@@ -234,7 +234,7 @@ export default function TestimonialSection() {
                   <p className="text-gray-500 text-xs">{testimonial.handle}</p>
                 </div>
               </div>
-              <p className="text-gray-700 text-sm text-left line-clamp-3">"{testimonial.quote}"</p>
+              <p className="text-gray-700 text-sm text-left line-clamp-3">&quot;{testimonial.quote}&quot;</p>
             </motion.div>
           ))}
         </motion.div>
