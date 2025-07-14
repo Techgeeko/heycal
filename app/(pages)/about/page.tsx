@@ -32,7 +32,7 @@ export default function AboutUsPage() {
         </div>
         <h2 className="text-3xl font-semibold mb-4 text-center">The Problem: Overwhelm & Complexity</h2>
         <p className="text-gray-700 text-lg leading-relaxed text-center max-w-3xl mx-auto">
-          In a world full of digital tools, managing your schedule and tasks has become paradoxically complex. We're
+          In a world full of digital tools, managing your schedule and tasks has become paradoxically complex. We&apos;re
           drowning in tabs, struggling with rigid interfaces, and constantly switching between apps just to keep track
           of our day. This complexity leads to anxiety, missed deadlines, and a feeling of being constantly behind. Your
           calendar should be a source of calm, not chaos.
@@ -53,8 +53,7 @@ export default function AboutUsPage() {
         <p className="text-gray-700 text-lg leading-relaxed text-center max-w-3xl mx-auto">
           HeyCal was born from the frustration of over-engineered productivity tools. We believe managing your time
           should be as natural as texting a friend. Our AI-powered chat assistant understands your natural language,
-          instantly adding events and tasks without rigid forms. It's designed to be your calm, smart assistant, keeping
-          you in flow and ensuring you never forget what matters.
+          instantly adding events and tasks without rigid forms. It&apos;s designed to be your calm, smart assistant, keeping you in flow and ensuring you never forget what matters.
         </p>
       </motion.div>
 
@@ -80,10 +79,10 @@ export default function AboutUsPage() {
             />
           </div>
           <div className="text-left md:text-left">
-            <h3 className="text-2xl font-bold text-black mb-2">Alex Johnson</h3>
+            <h3 className="text-2xl font-bold text-black mb-2">Micheal Agulonye</h3>
             <p className="text-gray-600 text-lg mb-4">CEO & Founder of HeyCal</p>
             <p className="text-gray-700 leading-relaxed">
-              Alex, a seasoned software engineer and a busy parent, constantly found himself overwhelmed by the myriad
+              Micheal, a seasoned software engineer and a busy parent, constantly found himself overwhelmed by the myriad
               of tools needed to manage his professional and personal life. He envisioned a simpler, more human-centric
               approach to productivity. With HeyCal, he aims to bring peace of mind back to daily scheduling, allowing
               everyone to focus on what truly matters without the digital clutter.
