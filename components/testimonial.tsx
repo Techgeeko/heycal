@@ -93,7 +93,7 @@ export default function TestimonialSection() {
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
           <h2 className="text-3xl sm:text-4xl font-semibold text-black mb-4">Loved by Everyday Humans</h2>
           <p className="text-gray-600 max-w-2xl mx-auto mb-12 text-lg">
-            Whether you're juggling work, school, family or all three — people choose HeyCal because it works the way
+            Whether you&apos;re juggling work, school, family or all three — people choose HeyCal because it works the way
             their brain works.
           </p>
         </motion.div>
@@ -247,7 +247,7 @@ export default function TestimonialSection() {
           className="relative"
         >
           <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-lg">
-            <h4 className="text-2xl font-bold text-black mb-2">Join thousands who've simplified their day</h4>
+            <h4 className="text-2xl font-bold text-black mb-2">Join thousands who&apos;ve simplified their day</h4>
             <p className="text-gray-600 max-w-xl mx-auto mb-6">
               Stop wrestling with tabs, tools, and planners. HeyCal brings it all into one calm, smart chat.
             </p>
@@ -256,7 +256,7 @@ export default function TestimonialSection() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              Start Using HeyCal — It's Free
+              Start Using HeyCal — It&apos;s Free
             </motion.button>
           </div>
         </motion.div>
