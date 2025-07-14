@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Image from "next/image"
+import { Sparkles } from "lucide-react"
 
 const featureFlows = [
   {
@@ -101,11 +102,16 @@ export default function FeatureFlowSection() {
 
   return (
     <section
-      className="py-16 px-4 max-w-6xl mx-auto"
+      id="features"
+      className="py-16 px-4 max-w-6xl mx-auto scroll-mt-20"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
       <div className="text-center mb-12">
+        <div className="inline-flex items-center rounded-full border px-4 py-1.5 text-sm font-medium mb-4">
+          <Sparkles className="w-4 h-4 mr-2 text-primary" />
+          Powerful Features
+        </div>
         <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">A Flow You Can Feel</h2>
         <p className="text-gray-600 text-lg max-w-2xl mx-auto">
           Every part of HeyCal is designed to ease anxiety, guide your flow, and make productivity feel natural.
