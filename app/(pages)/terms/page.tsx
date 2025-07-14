@@ -1,5 +1,3 @@
-"use client"
-
 import { motion } from "framer-motion"
 import Breadcrumb from "@/components/breadcrumb"
 import Content from "./content.mdx"

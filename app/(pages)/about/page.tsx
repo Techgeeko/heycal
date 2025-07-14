@@ -1,5 +1,3 @@
-"use client"
-
 import { motion } from "framer-motion"
 import Content from "./content.mdx"
 import Image from "next/image"
