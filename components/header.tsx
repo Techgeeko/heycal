@@ -9,6 +9,7 @@ import Link from "next/link"
 const navItems = [
   { label: "Features", href: "#features" },
   { label: "Pricing", href: "#pricing" },
+  { label: "Testimonials", href: "#testimonials" },
   { label: "About", href: "#about" },
 ]
 
