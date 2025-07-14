@@ -29,7 +29,7 @@ export default function PricingSection() {
           Simple Pricing, Built for Clarity
         </h2>
         <p className="text-gray-600 mb-8">
-          Start free, upgrade when you're ready. One price for peace of mind — no complexity.
+          Start 14-day trial with no billing, upgrade when you&apos;re ready. One price for peace of mind — no complexity.
         </p>
 
         {/* Toggle */}

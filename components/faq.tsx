@@ -15,7 +15,7 @@ export default function FaqSection() {
           Frequently Asked Questions
         </h2>
         <p className="text-gray-600 mb-10">
-          Got doubts? You're not alone. Here are the answers people ask before they fall in love with HeyCal.
+          Got doubts? You&apos;re not alone. Here are the answers people ask before they fall in love with HeyCal.
         </p>
 
         <Accordion type="single" collapsible className="w-full text-left">
@@ -29,21 +29,21 @@ export default function FaqSection() {
           <AccordionItem value="item-2">
             <AccordionTrigger>Do I need to connect my Google Calendar?</AccordionTrigger>
             <AccordionContent>
-              Nope. You can use HeyCal as a standalone planner, or choose to sync it with your calendar accounts when you're ready.
+              Nope. You can use HeyCal as a standalone planner, or choose to sync it with your calendar accounts when you&apos;re ready.
             </AccordionContent>
           </AccordionItem>
 
           <AccordionItem value="item-3">
             <AccordionTrigger>Is my data safe?</AccordionTrigger>
             <AccordionContent>
-              Absolutely. We don’t sell your data. Everything you type is private and encrypted. You’re always in control.
+              Absolutely. We don&apos;t sell your data. Everything you type is private and encrypted. You&apos;re always in control.
             </AccordionContent>
           </AccordionItem>
 
           <AccordionItem value="item-4">
             <AccordionTrigger>Is it free?</AccordionTrigger>
             <AccordionContent>
-              HeyCal is free to use for individuals. We plan to introduce premium features for teams and power users, but the core chat experience will always remain free.
+              HeyCal isn&apos;t free to use, but it comes with a 14-days trial and for individuals. We plan to introduce premium features for teams and power users, you won&apos;t get billed while the trial is on.
             </AccordionContent>
           </AccordionItem>
 

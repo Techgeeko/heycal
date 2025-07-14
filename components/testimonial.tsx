@@ -34,7 +34,7 @@ export default function TestimonialSection() {
           Loved by Everyday Humans
         </h2>
         <p className="text-gray-600 max-w-2xl mx-auto mb-12">
-          Whether you're juggling work, school, family or all three — people choose HeyCal because it works the way their brain works.
+          Whether you&apos;re juggling work, school, family or all three — people choose HeyCal because it works the way their brain works.
         </p>
 
         <div className="grid md:grid-cols-3 gap-8 text-left">
@@ -60,12 +60,12 @@ export default function TestimonialSection() {
 
         {/* Reinforce CTA below */}
         <div className="mt-16">
-          <h4 className="text-xl font-semibold text-black mb-2">Join thousands who’ve simplified their day</h4>
+          <h4 className="text-xl font-semibold text-black mb-2">Join thousands who&apos;ve simplified their day</h4>
           <p className="text-gray-600 max-w-xl mx-auto mb-6">
             Stop wrestling with tabs, tools, and planners. HeyCal brings it all into one calm, smart chat.
           </p>
           <button className="bg-black text-white text-base px-6 py-3 rounded-md hover:bg-gray-800 transition">
-            Start Using HeyCal — It’s Free
+            Start Using HeyCal — It&apos;s Free
           </button>
         </div>
       </div>

@@ -32,8 +32,8 @@ export default function Features() {
           From Calendar Chaos to Clear Conversations
         </h2>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-12">
-          Ever stared at your calendar and felt more overwhelmed than organized? You're not alone. 
-          Most tools assume you're already in control — but HeyCal meets you where you are: busy, distracted, 
+          Ever stared at your calendar and felt more overwhelmed than organized? You&apos;re not alone. 
+          Most tools assume you&apos;re already in control — but HeyCal meets you where you are: busy, distracted, 
           and human.
         </p>
 
@@ -56,7 +56,7 @@ export default function Features() {
         <div className="mt-16">
           <h4 className="text-xl font-semibold text-black mb-2">Still doubting?</h4>
           <p className="text-gray-600 max-w-xl mx-auto mb-6">
-            You're not lazy. You're just overloaded. HeyCal exists so your calendar works with you — 
+            You&apos;re not lazy. You&apos;re just overloaded. HeyCal exists so your calendar works with you — 
             not against you. Give it one minute. Say hi, and see the difference.
           </p>
           <Button className="px-6 py-3 text-base">Start Using HeyCal Now</Button>
