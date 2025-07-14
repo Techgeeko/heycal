@@ -30,7 +30,7 @@ export default function PricingSection() {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <h2 className="text-3xl sm:text-4xl font-semibold text-black mb-4">Simple Pricing, Built for Clarity</h2>
           <p className="text-gray-600 text-lg mb-8 max-w-2xl mx-auto">
-            Start 14-day trial with no billing, upgrade when you're ready. One price for peace of mind — no complexity.
+            Start 14-day trial with no billing, upgrade when you&apos;re ready. One price for peace of mind — no complexity.
           </p>
         </motion.div>
 
