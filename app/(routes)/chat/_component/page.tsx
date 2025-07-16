@@ -105,7 +105,7 @@ export default function ChatComponent() {
           {isLoading && (
             <div className="flex justify-start mb-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
               <div className="p-3 rounded-lg bg-neutral-100 text-neutral-900 border border-neutral-200">
-                <p className="text-sm animate-pulse">AI is thinking...</p>
+                <p className="text-sm animate-pulse">HeyCal is thinking...</p>
               </div>
             </div>
           )}
