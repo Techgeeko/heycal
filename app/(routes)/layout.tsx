@@ -112,18 +112,7 @@ export default function AuthenticatedLayout({ children }: { children: React.Reac
   // const toggleTheme = () => setTheme(isDarkMode ? 'light' : 'dark');
 
   return (
-    <div className="flex min-h-screen bg-gray-50/50">
-      {/* Mobile Menu Button */}
-      {/* <Button
-        variant="ghost"
-        size="icon"
-        className="fixed top-4 left-4 z-50 md:hidden"
-        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-      >
-        <Menu className="h-5 w-5" />
-      </Button> */}
-      
-
+    <div className="flex min-h-screen">
       {/* Sidebar */}
       <div className={`fixed inset-y-0 left-0 z-40 transform transition-transform duration-300 ease-in-out ${
         isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
@@ -187,13 +176,13 @@ export default function AuthenticatedLayout({ children }: { children: React.Reac
                     {isMobileMenuOpen ? <XIcon className="w-5 h-5" /> : <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><line x1="4" y1="7" x2="20" y2="7" /><line x1="4" y1="17" x2="16" y2="17" /></svg>}
                   </button>
                 </SheetTrigger>
-                <SheetContent side="right" className="p-16 bg-white rounded-l-lg shadow-lg">
-                  <nav className="space-y-4">
+                <SheetContent side="right" className="p-6 sm:p-16 bg-white rounded-l-lg shadow-lg w-full max-w-xs">
+                  <nav className="space-y-3">
                     {navLinks.map(({ href, label }) => (
                       <Link
                         key={href}
                         href={href}
-                        className={`block px-4 py-2 rounded-lg text-center ${
+                        className={`block w-full px-4 py-2 rounded-md text-sm text-center transition-colors ${
                           isActive(href)
                             ? "bg-gray-200 text-black font-semibold"
                             : "text-gray-700 hover:bg-gray-100"
@@ -204,13 +193,13 @@ export default function AuthenticatedLayout({ children }: { children: React.Reac
                     ))}
                   </nav>
                   {/* Invite Card */}
-                  <div className="px-2 mt-4">
-                    <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-100 shadow-sm">
+                  <div className="mt-6 px-4">
+                    <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-100 shadow-sm">
                       <CardHeader className="pb-2 space-y-1">
-                        <CardTitle className="text-sm font-medium text-indigo-800">
+                        <CardTitle className="text-sm font-semibold text-indigo-800">
                           Invite Your Team
                         </CardTitle>
-                        <CardDescription className="text-indigo-600/80 text-xs">
+                        <CardDescription className="text-xs text-indigo-600">
                           Boost productivity together with HeyCal
                         </CardDescription>
                       </CardHeader>
@@ -218,7 +207,7 @@ export default function AuthenticatedLayout({ children }: { children: React.Reac
                         <Button
                           onClick={handleInvite}
                           variant="default"
-                          className="w-full bg-blue-600 hover:bg-blue-700 text-white transition-colors"
+                          className="w-full bg-blue-600 hover:bg-blue-700 text-white text-sm transition-colors"
                         >
                           {copied ? 'Copied!' : 'Copy Invite Link'}
                         </Button>
