@@ -64,7 +64,7 @@ export default function ChatComponent() {
       <div className="p-4 border-b border-neutral-200 flex items-center justify-between">
         <h1 className="text-xl font-semibold flex items-center gap-2">
           <Sparkles className="w-5 h-5 text-neutral-600" />
-          AI Calendar Assistant
+          HeyCal Assistant
         </h1>
         <Sheet>
           <SheetTrigger asChild>
@@ -81,8 +81,8 @@ export default function ChatComponent() {
             </SheetHeader>
             <ScrollArea className="h-[calc(100vh-120px)] pr-4">
               <ul className="list-disc list-inside text-sm text-neutral-700 space-y-2">
-                <li>Scheduled 'Team Sync' for tomorrow at 10 AM.</li>
-                <li>Set reminder for 'Project Deadline' on Friday.</li>
+                <li>Scheduled &apos;Team Sync&apos; for tomorrow at 10 AM.</li>
+                <li>Set reminder for &apos;Project Deadline&apos; on Friday.</li>
               </ul>
               <p className="text-xs mt-4 text-neutral-500">
                 {"This is a placeholder for your recent calendar activities."}
