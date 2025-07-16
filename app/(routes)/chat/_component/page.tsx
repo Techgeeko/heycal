@@ -61,7 +61,7 @@ export default function ChatComponent() {
   return (
     <div className="min-h-screen flex flex-col bg-neutral-50 text-neutral-900">
       {/* Header */}
-      <div className="p-4 border-b border-neutral-200 flex items-center justify-between">
+      {/* <div className="p-4 border-b border-neutral-200 flex items-center justify-between">
         <h1 className="text-xl font-semibold flex items-center gap-2">
           <Sparkles className="w-5 h-5 text-neutral-600" />
           HeyCal Assistant
@@ -90,7 +90,7 @@ export default function ChatComponent() {
             </ScrollArea>
           </SheetContent>
         </Sheet>
-      </div>
+      </div> */}
 
       {/* Messages */}
       <div className="flex-grow p-4 overflow-hidden relative">
