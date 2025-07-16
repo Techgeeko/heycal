@@ -81,7 +81,7 @@ export default function AppSidebar() {
             onClick={handleInvite}
             className="w-full text-center text-xs text-stone-400 hover:text-stone-200 transition"
           >
-            {copied ? 'Copied!' : 'Invites'}
+            {copied ? 'Copied!' : 'Share HeyCal'}
           </button>
         </div>
       </nav>

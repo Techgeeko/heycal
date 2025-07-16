@@ -144,7 +144,7 @@ export default function AuthenticatedLayout({ children }: { children: React.Reac
         isMobile ? 'pl-0' : 'md:pl-64'
       }`}>
         <header className="sticky top-0 z-20 bg-white/95 border-b border-gray-200 backdrop-blur supports-[backdrop-filter]:bg-white/60">
-          <div className="flex items-center justify-between p-4 md:py-4">
+          <div className="flex items-center justify-between p-4 h-16 md:py-4">
             <div className="flex items-center md:ml-0 ml-8">
               <Breadcrumb>
                 <BreadcrumbList>
