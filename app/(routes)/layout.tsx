@@ -112,7 +112,7 @@ export default function AuthenticatedLayout({ children }: { children: React.Reac
   // const toggleTheme = () => setTheme(isDarkMode ? 'light' : 'dark');
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen bg-white">
       {/* Sidebar */}
       <div className={`fixed inset-y-0 left-0 z-40 transform transition-transform duration-300 ease-in-out ${
         isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
