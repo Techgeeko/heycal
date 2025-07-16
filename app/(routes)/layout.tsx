@@ -152,22 +152,6 @@ export default function AuthenticatedLayout({ children }: { children: React.Reac
               </Breadcrumb>
             </div>
 
-            {/* Theme Toggle Button */}
-            {/* {mounted && (
-              <button
-                type="button"
-                aria-label="Toggle dark mode"
-                onClick={toggleTheme}
-                className="inline-flex hidden md:flex gap-2 items-center rounded-full px-4 py-2 bg-black/5 dark:bg-white/10 text-gray-700 dark:text-gray-200 hover:bg-black/10 dark:hover:bg-white/20 transition font-medium text-sm"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                  <circle cx="12" cy="12" r="5" />
-                  <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
-                </svg>
-                <span>{isDarkMode ? 'Light mode' : 'Dark mode'}</span>
-              </button>
-            )} */}
-
             {/* Mobile Hamburger Menu */}
             <div className="z-50 md:hidden">
               <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
@@ -192,27 +176,22 @@ export default function AuthenticatedLayout({ children }: { children: React.Reac
                       </Link>
                     ))}
                   </nav>
-                  {/* Invite Card */}
-                  <div className="mt-6 px-4">
-                    <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-100 shadow-sm">
-                      <CardHeader className="pb-2 space-y-1">
-                        <CardTitle className="text-sm font-semibold text-indigo-800">
-                          Invite Your Team
-                        </CardTitle>
-                        <CardDescription className="text-xs text-indigo-600">
-                          Boost productivity together with HeyCal
-                        </CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <Button
-                          onClick={handleInvite}
-                          variant="default"
-                          className="w-full bg-blue-600 hover:bg-blue-700 text-white text-sm transition-colors"
-                        >
-                          {copied ? 'Copied!' : 'Copy Invite Link'}
-                        </Button>
-                      </CardContent>
-                    </Card>
+                  {/* Invitation Block */}
+                  <div className="mt-8 space-y-3 p-4 bg-stone-900 border border-stone-800 rounded-lg">
+                    <p className="text-[11px] font-medium tracking-wider text-stone-500">Invitation</p>
+                    <div className="flex items-center justify-between text-sm">
+                      <span>Invited</span>
+                      <span>8.2 GB of 15 GB</span>
+                    </div>
+                    <div className="h-2 rounded-full bg-stone-800 relative">
+                      <span className="absolute inset-y-0 left-0 w-2/5 bg-gradient-to-r from-stone-400 to-stone-300 rounded-full"></span>
+                    </div>
+                    <button
+                      onClick={handleInvite}
+                      className="w-full text-center text-xs text-stone-400 hover:text-stone-200 transition"
+                    >
+                      {copied ? 'Copied!' : 'Share HeyCal'}
+                    </button>
                   </div>
                 </SheetContent>
               </Sheet>
