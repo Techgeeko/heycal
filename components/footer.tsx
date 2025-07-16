@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Facebook, Twitter, Linkedin, Github } from "lucide-react"
+import { Facebook, Twitter, Linkedin, TikTok } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import Image from 'next/image'
@@ -55,13 +55,13 @@ export default function Footer() {
       <div className="border-t">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center space-x-4 text-gray-500">
-            <a href="#" className="hover:text-black"><Facebook size={18} /></a>
-            <a href="#" className="hover:text-black"><Twitter size={18} /></a>
-            <a href="#" className="hover:text-black"><Linkedin size={18} /></a>
-            <a href="#" className="hover:text-black"><Github size={18} /></a>
+            <a target="_blank" href="#" className="hover:text-black"><Facebook size={18} /></a>
+            <a target="_blank" href="https://x.com/calsyncai" className="hover:text-black"><Twitter size={18} /></a>
+            <a target="_blank" href="#" className="hover:text-black"><Linkedin size={18} /></a>
+            <a target="_blank" href="#" className="hover:text-black"><TikTok size={18} /></a>
           </div>
           <p className="text-sm text-gray-500">
-            Built by <a href="https://yourwebsite.com" className="text-black font-medium hover:underline">Micheal Agulonye</a>
+            Built by <a target="_blank" href="https://x.com/agulonye_m" className="text-black font-medium hover:underline">Micheal Agulonye</a>
           </p>
         </div>
       </div>
