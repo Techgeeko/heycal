@@ -60,7 +60,6 @@ export default function RootLayout({
           className={`${manrope.variable} ${manrope.variable} antialiased`}
         >
           {children}
-          <LiveSupport />
           <Toaster richColors position="bottom-right" />
         </body>
       </html>
