@@ -183,8 +183,8 @@ export default function AuthenticatedLayout({ children }: { children: React.Reac
             <div className="z-50 md:hidden">
               <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
                 <SheetTrigger asChild>
-                  <button className="text-gray-100 bg-indigo-900 p-2 rounded-lg focus:outline-none">
-                    {isMobileMenuOpen ? <XIcon className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                  <button className="text-gray-100 p-2 rounded-lg focus:outline-none">
+                    {isMobileMenuOpen ? <XIcon className="w-5 h-5" /> : <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><line x1="4" y1="7" x2="20" y2="7" /><line x1="4" y1="17" x2="16" y2="17" /></svg>}
                   </button>
                 </SheetTrigger>
                 <SheetContent side="right" className="p-16 bg-white rounded-l-lg shadow-lg">
