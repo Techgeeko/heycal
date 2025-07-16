@@ -9,7 +9,6 @@ import { XIcon } from "lucide-react"
 import AppSidebar from "@/components/appSidebar"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import Link from "next/link"
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"
 
 // Logic to display active page but not repeat duplicate page for dashboard
 const formatPageName = (path: string) => {
