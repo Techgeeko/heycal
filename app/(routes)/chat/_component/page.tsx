@@ -59,26 +59,26 @@ export default function ChatComponent() {
             </SheetHeader>
             <ScrollArea className="h-[calc(100vh-120px)] pr-4">
               <ul className="list-disc list-inside text-sm text-neutral-700 space-y-2">
-                <li>Scheduled "Team Sync" for tomorrow at 10 AM.</li>
-                <li>Set reminder for "Project Deadline" on Friday.</li>
-                <li>Checked availability for "Client Meeting" next week.</li>
-                <li>Created "Birthday Party" event for John on 2025-07-25.</li>
-                <li>Rescheduled "Dentist Appointment" to next Monday.</li>
-                <li>Added "Grocery Shopping" to Saturday's to-do list.</li>
-                <li>Confirmed "Flight to NYC" details for next month.</li>
-                <li>Searched for "Yoga classes" on Tuesday evenings.</li>
-                <li>Updated "Gym Session" to 6 PM daily.</li>
-                <li>Deleted "Old Project Review" meeting.</li>
-                <li>Scheduled "Team Sync" for tomorrow at 10 AM.</li>
-                <li>Set reminder for "Project Deadline" on Friday.</li>
-                <li>Checked availability for "Client Meeting" next week.</li>
-                <li>Created "Birthday Party" event for John on 2025-07-25.</li>
-                <li>Rescheduled "Dentist Appointment" to next Monday.</li>
-                <li>Added "Grocery Shopping" to Saturday's to-do list.</li>
-                <li>Confirmed "Flight to NYC" details for next month.</li>
-                <li>Searched for "Yoga classes" on Tuesday evenings.</li>
-                <li>Updated "Gym Session" to 6 PM daily.</li>
-                <li>Deleted "Old Project Review" meeting.</li>
+                <li>Scheduled &apos;Team Sync&apos; for tomorrow at 10 AM.</li>
+                <li>Set reminder for &apos;Project Deadline&apos; on Friday.</li>
+                <li>Checked availability for &apos;Client Meeting&apos; next week.</li>
+                <li>Created &apos;Birthday Party&apos; event for John on 2025-07-25.</li>
+                <li>Rescheduled &apos;Dentist Appointment&apos; to next Monday.</li>
+                <li>Added &apos;Grocery Shopping&apos; to Saturday&apos;s to-do list.</li>
+                <li>Confirmed &apos;Flight to NYC&apos; details for next month.</li>
+                <li>Searched for &apos;Yoga classes&apos; on Tuesday evenings.</li>
+                <li>Updated &apos;Gym Session&apos; to 6 PM daily.</li>
+                <li>Deleted &apos;Old Project Review&apos; meeting.</li>
+                <li>Scheduled &apos;Team Sync&apos; for tomorrow at 10 AM.</li>
+                <li>Set reminder for &apos;Project Deadline&apos; on Friday.</li>
+                <li>Checked availability for &apos;Client Meeting&apos; next week.</li>
+                <li>Created &apos;Birthday Party&apos; event for John on 2025-07-25.</li>
+                <li>Rescheduled &apos;Dentist Appointment&apos; to next Monday.</li>
+                <li>Added &apos;Grocery Shopping&apos; to Saturday&apos;s to-do list.</li>
+                <li>Confirmed &apos;Flight to NYC&apos; details for next month.</li>
+                <li>Searched for &apos;Yoga classes&apos; on Tuesday evenings.</li>
+                <li>Updated &apos;Gym Session&apos; to 6 PM daily.</li>
+                <li>Deleted &apos;Old Project Review&apos; meeting.</li>
               </ul>
               <p className="text-xs mt-4 text-neutral-500">
                 {"This is a placeholder for your recent calendar activities."}
