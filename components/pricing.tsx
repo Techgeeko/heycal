@@ -7,14 +7,19 @@ import { Switch } from "@/components/ui/switch"
 import { Check, Sparkles, Users } from "lucide-react"
 
 const individualFeatures = [
-  "Unlimited scheduling",
   "AI-powered chat assistant",
-  "Daily agenda summaries",
+  "1 Calendar integration",
+  "Unlimited scheduling",
   "Reminders & notifications",
+  "Daily agenda summaries",
+  "Chat history log",
+  "Basic analytics",
+  "Solo access",
+  "Email support",
 ]
 
 const enterpriseFeatures = [
-  "Everything in Individual",
+  "Unlimited Everything in Individual",
   "Team calendar syncing",
   "Admin controls & analytics",
   "Priority support & SLAs",
