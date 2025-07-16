@@ -15,16 +15,16 @@ export default function ChatComponent() {
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const [hasWelcomed, setHasWelcomed] = useState(false)
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
-  }
+//   const scrollToBottom = () => {
+//     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+//   }
 
   useEffect(() => {
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto"
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
     }
-    scrollToBottom()
+    // scrollToBottom()
   }, [input, messages])
 
   // Welcome animation messages
@@ -60,38 +60,6 @@ export default function ChatComponent() {
 
   return (
     <div className="min-h-screen flex flex-col bg-neutral-50 text-neutral-900">
-      {/* Header */}
-      {/* <div className="p-4 border-b border-neutral-200 flex items-center justify-between">
-        <h1 className="text-xl font-semibold flex items-center gap-2">
-          <Sparkles className="w-5 h-5 text-neutral-600" />
-          HeyCal Assistant
-        </h1>
-        <Sheet>
-          <SheetTrigger asChild>
-            <Button variant="ghost" size="icon" className="text-neutral-600 hover:bg-neutral-100">
-              <History className="w-5 h-5" />
-            </Button>
-          </SheetTrigger>
-          <SheetContent
-            side="right"
-            className="w-full sm:max-w-sm bg-neutral-50 text-neutral-900 border-l border-neutral-200"
-          >
-            <SheetHeader className="border-b border-neutral-200 pb-4 mb-4">
-              <SheetTitle className="text-xl font-semibold">Recent Activities</SheetTitle>
-            </SheetHeader>
-            <ScrollArea className="h-[calc(100vh-120px)] pr-4">
-              <ul className="list-disc list-inside text-sm text-neutral-700 space-y-2">
-                <li>Scheduled &apos;Team Sync&apos; for tomorrow at 10 AM.</li>
-                <li>Set reminder for &apos;Project Deadline&apos; on Friday.</li>
-              </ul>
-              <p className="text-xs mt-4 text-neutral-500">
-                {"This is a placeholder for your recent calendar activities."}
-              </p>
-            </ScrollArea>
-          </SheetContent>
-        </Sheet>
-      </div> */}
-
       {/* Messages */}
       <div className="flex-grow p-4 overflow-hidden relative">
         <ScrollArea className="absolute inset-0 pr-4 pb-[100px]">
