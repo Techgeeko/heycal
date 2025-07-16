@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Facebook, Twitter, Linkedin, TikTok } from "lucide-react"
+import { Facebook, Twitter, Linkedin } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import Image from 'next/image'
@@ -58,7 +58,7 @@ export default function Footer() {
             <a target="_blank" href="#" className="hover:text-black"><Facebook size={18} /></a>
             <a target="_blank" href="https://x.com/calsyncai" className="hover:text-black"><Twitter size={18} /></a>
             <a target="_blank" href="#" className="hover:text-black"><Linkedin size={18} /></a>
-            <a target="_blank" href="#" className="hover:text-black"><TikTok size={18} /></a>
+            {/* <a target="_blank" href="#" className="hover:text-black"><TikTok size={18} /></a> */}
           </div>
           <p className="text-sm text-gray-500">
             Built by <a target="_blank" href="https://x.com/agulonye_m" className="text-black font-medium hover:underline">Micheal Agulonye</a>

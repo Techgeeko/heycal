@@ -112,7 +112,7 @@ export default function AuthenticatedLayout({ children }: { children: React.Reac
   // const toggleTheme = () => setTheme(isDarkMode ? 'light' : 'dark');
 
   return (
-    <div className="flex min-h-screen bg-gray-50/50 dark:bg-gray-950">
+    <div className="flex min-h-screen bg-gray-50/50">
       {/* Mobile Menu Button */}
       {/* <Button
         variant="ghost"
@@ -143,19 +143,19 @@ export default function AuthenticatedLayout({ children }: { children: React.Reac
       <div className={`flex-1 flex flex-col min-h-screen transition-[padding] duration-300 ease-in-out ${
         isMobile ? 'pl-0' : 'md:pl-64'
       }`}>
-        <header className="sticky top-0 z-20 bg-white/95 dark:bg-gray-900/95 border-b border-gray-200 dark:border-gray-800 backdrop-blur supports-[backdrop-filter]:bg-white/60 supports-[backdrop-filter]:dark:bg-gray-900/60">
+        <header className="sticky top-0 z-20 bg-white/95 border-b border-gray-200 backdrop-blur supports-[backdrop-filter]:bg-white/60">
           <div className="flex items-center justify-between p-4 md:py-4">
             <div className="flex items-center md:ml-0 ml-8">
               <Breadcrumb>
                 <BreadcrumbList>
                   <BreadcrumbItem>
-                    <BreadcrumbLink href="/" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">
-                      CalSync
+                    <BreadcrumbLink href="/" className="text-gray-600 hover:text-gray-900">
+                      HeyCal
                     </BreadcrumbLink>
                   </BreadcrumbItem>
                   <BreadcrumbSeparator />
                   <BreadcrumbItem>
-                    <BreadcrumbPage className="text-gray-900 dark:text-gray-100 font-medium">
+                    <BreadcrumbPage className="text-gray-900 font-medium">
                       {pageName}
                     </BreadcrumbPage>
                   </BreadcrumbItem>
@@ -205,13 +205,13 @@ export default function AuthenticatedLayout({ children }: { children: React.Reac
                   </nav>
                   {/* Invite Card */}
                   <div className="px-2 mt-4">
-                    <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border-blue-100 dark:border-blue-800 shadow-sm">
+                    <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-100 shadow-sm">
                       <CardHeader className="pb-2 space-y-1">
-                        <CardTitle className="text-sm font-medium text-indigo-800 dark:text-blue-200">
+                        <CardTitle className="text-sm font-medium text-indigo-800">
                           Invite Your Team
                         </CardTitle>
-                        <CardDescription className="text-indigo-600/80 dark:text-blue-300/80 text-xs">
-                          Boost productivity together with CalSync
+                        <CardDescription className="text-indigo-600/80 text-xs">
+                          Boost productivity together with HeyCal
                         </CardDescription>
                       </CardHeader>
                       <CardContent>

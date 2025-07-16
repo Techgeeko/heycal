@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import "./globals.css";
 import LiveSupport from "@/components/liveSupport";
+import { Toaster } from 'sonner'
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -61,6 +62,7 @@ export default function RootLayout({
         >
           {children}
           <LiveSupport />
+          <Toaster richColors position="bottom-right" />
         </body>
       </html>
   );
