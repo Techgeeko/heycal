@@ -13,8 +13,8 @@ import Link from 'next/link'
 
 export default function SignUp() {
     const {isLoaded, signUp, setActive} = useSignUp()
-    const [firstName, setFirstName] = useState("")
-    const [lastName, setLastName] = useState("")
+    // const [firstName, setFirstName] = useState("")
+    // const [lastName, setLastName] = useState("")
     const [emailAddress, setEmailAddress] = useState("")
     const [password, setPassword] = useState("")
     const [pendingVerification, setPendingVerification] = useState(false)
@@ -36,8 +36,8 @@ export default function SignUp() {
 
         try {
             await signUp.create({
-                firstName,
-                lastName,
+                // firstName,
+                // lastName,
                 emailAddress,
                 password
             })
@@ -88,14 +88,14 @@ export default function SignUp() {
                 <CardContent>
                     {!pendingVerification ? (
                         <form onSubmit={submit} className='space-y-4'>
-                            <div className="space-y-2">
+                            {/* <div className="space-y-2">
                                 <Label htmlFor='text' >First Naame</Label>
                                 <Input type='text' id='text' value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
                             </div>
                             <div className="space-y-2">
                                 <Label htmlFor='text' >Last Naame</Label>
                                 <Input type='text' id='text' value={lastName} onChange={(e) => setLastName(e.target.value)} required />
-                            </div>
+                            </div> */}
                             <div className="space-y-2">
                                 <Label htmlFor='email' >Email Address</Label>
                                 <Input type='email' id='email' value={emailAddress} onChange={(e) => setEmailAddress(e.target.value)} required />
