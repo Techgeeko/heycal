@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Send } from "lucide-react"
 import { motion } from "framer-motion"
 import Image from "next/image"
+import Link from "next/link"
 
 export default function Hero() {
   const [input, setInput] = useState("")
@@ -63,9 +64,11 @@ export default function Hero() {
           </div>
 
           {/* CTA */}
-          <Button className="mt-6 text-base px-6 py-2">
-            Start Talking to Your Calendar
-          </Button>
+          <Link href="/sign-up" passHref>
+            <Button asChild className="mt-6 text-base px-6 py-2">
+              <a>Start Talking to Your Calendar</a>
+            </Button>
+          </Link>
         </div>
 
         {/* Interactive Demo Card */}
