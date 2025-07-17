@@ -46,6 +46,7 @@ export default function SignUp() {
                 strategy: "email_code"
             });
             setPendingVerification(true)
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             console.log(JSON.stringify(error, null, 2));
             setError(error.errors[0].message)
@@ -71,6 +72,7 @@ export default function SignUp() {
                 await setActive({session: completeSignUp.createdSessionId})
                 router.push('/chat')
             }
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             console.log(JSON.stringify(error, null, 2))
             setError(error.errors[0].message)
