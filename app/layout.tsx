@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { type Metadata } from 'next'
 import { ClerkProvider } from '@clerk/nextjs'
 import { Manrope } from "next/font/google";
