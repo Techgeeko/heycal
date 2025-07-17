@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
+import { type Metadata } from 'next'
+import { ClerkProvider } from '@clerk/nextjs'
 import { Manrope } from "next/font/google";
 import "./globals.css";
 import { Toaster } from 'sonner'
+
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -49,6 +52,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
         <head>
           <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -63,5 +67,6 @@ export default function RootLayout({
           <Toaster richColors position="bottom-right" />
         </body>
       </html>
+    </ClerkProvider>
   );
 }
