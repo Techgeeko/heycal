@@ -59,7 +59,7 @@ export default function Hero() {
               <Image src="https://i.pravatar.cc/40?img=33" alt="User 3" width={36} height={36} className="rounded-full border-2 border-white" />
             </div>
             <span className="text-sm text-gray-500">
-              Trusted by 5,000+ users
+              0 users currently using HeyCal
             </span>
           </div>
 
