@@ -1,33 +1,37 @@
 "use client"
 
-import type React from "react"
-import { useChat } from "ai/react"
 import { useRef, useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
-// import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { Sparkles, Mic, ArrowUp } from "lucide-react"
+import { toast } from "sonner"
+import { useCalendar } from "@/components/calendar-provider"
+import { useChat } from "ai/react"
+
+import { routeCommand } from "@/ai/flows/command-router"
+import { cancelEvent } from "@/ai/flows/cancel-events"
+import { getUpcomingEvents } from "@/lib/services/get-upcoming-events"
+import { answerQuestionAboutEvents } from "@/ai/flows/answer-question-about-events"
+import { scheduleEvent } from "@/ai/flows/schedule-events"
+import { rescheduleEvent } from "@/ai/flows/reschedule-events"
 
 export default function ChatComponent() {
-  const { messages, input, handleInputChange, handleSubmit, isLoading, error, append } = useChat()
+  const { accessToken, isConnected } = useCalendar()
+
+  const { messages, input, handleInputChange, append, isLoading, error, setInput } = useChat()
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const [hasWelcomed, setHasWelcomed] = useState(false)
-
-//   const scrollToBottom = () => {
-//     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
-//   }
 
   useEffect(() => {
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto"
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
     }
-    // scrollToBottom()
   }, [input, messages])
 
-  // Welcome animation messages
+  // Welcome messages
   useEffect(() => {
     if (!hasWelcomed && messages.length === 0) {
       setHasWelcomed(true)
@@ -53,9 +57,63 @@ export default function ChatComponent() {
     }
   }, [messages, hasWelcomed, append])
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleCustomSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    handleSubmit(e)
+    const userMessage = input.trim()
+    if (!userMessage) return
+
+    // Append user message
+    append({ role: "user", content: userMessage })
+    setInput("")
+
+    if (!isConnected || !accessToken) {
+      append({
+        role: "assistant",
+        content: "Please connect your Google Calendar to get started. [Go to Integrations](/integrations)"
+      })
+      return
+    }
+
+    const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone
+
+    try {
+      const { command } = await routeCommand({ message: userMessage })
+
+      let aiResponse = "I’m sorry, I didn’t understand that. I can help schedule, reschedule, cancel, or answer questions about your events."
+
+      switch (command) {
+        case "schedule":
+          const scheduled = await scheduleEvent({ description: userMessage, accessToken, userTimezone })
+          aiResponse = scheduled.message
+          break
+        case "cancel":
+          const cancelled = await cancelEvent({ command: userMessage, accessToken })
+          aiResponse = cancelled.message
+          break
+        case "reschedule":
+          const rescheduled = await rescheduleEvent({ command: userMessage, accessToken, userTimezone })
+          aiResponse = rescheduled.message
+          break
+        case "view_events":
+          const events = await getUpcomingEvents(accessToken)
+          const answered = await answerQuestionAboutEvents({ question: userMessage, events: JSON.stringify(events, null, 2) })
+          aiResponse = answered.answer
+          break
+        case "chat":
+          if (userMessage.toLowerCase().includes("hello") || userMessage.toLowerCase().includes("hi") || userMessage.toLowerCase().includes("hey")) {
+            aiResponse = "Hello there! How can I assist you with your schedule today?"
+          } else {
+            aiResponse = "I can help with scheduling, rescheduling, and canceling events. What would you like to do?"
+          }
+          break
+      }
+
+      append({ role: "assistant", content: aiResponse })
+    } catch (err) {
+      console.error("Error handling message:", err)
+      toast.error("Something went wrong: I had trouble processing your request. Please try again.")
+      append({ role: "assistant", content: "Oops! Something went wrong. Try again later." })
+    }
   }
 
   return (
@@ -118,7 +176,7 @@ export default function ChatComponent() {
 
       {/* Input */}
       <div className="fixed bottom-0 inset-x-0 p-4 bg-neutral-50 border-t border-neutral-200 flex justify-center">
-        <form onSubmit={onSubmit} className="w-full max-w-2xl">
+        <form onSubmit={handleCustomSubmit} className="w-full max-w-2xl">
           <div className="relative flex flex-col rounded-lg border border-neutral-300 p-3 shadow-sm">
             <textarea
               ref={textareaRef}
