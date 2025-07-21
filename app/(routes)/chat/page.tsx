@@ -1,11 +1,8 @@
-import type { Metadata } from "next";
+"use client";
+
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
 import { Loader2 } from "lucide-react";
-
-export const metadata: Metadata = {
-  title: "Chat"
-};
 
 // Dynamically load ChatComponent only on the client
 const ChatComponent = dynamic(() => import('./_component/page'), {
