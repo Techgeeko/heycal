@@ -9,18 +9,14 @@ export const metadata: Metadata = {
 
 export default function Chat() {
   return (
-    <div className="flex-grow container mx-auto p-4 flex flex-col items-center justify-center overflow-hidden">
-      <Suspense
-        fallback={
-          <div className="flex items-center justify-center h-full">
-            <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
-          </div>
-        }
-      >
-        <div>
-          <ChatComponent />
+    <Suspense
+      fallback={
+        <div className="flex items-center justify-center h-screen">
+          <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
         </div>
-      </Suspense>
-    </div>
+      }
+    >
+      <ChatComponent />
+    </Suspense>
   );
 }
