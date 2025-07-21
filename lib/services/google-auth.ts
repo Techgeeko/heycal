@@ -4,17 +4,17 @@
 import { google } from 'googleapis';
 
 const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
-const GOOGLE_CLIENT_SECRET = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET;
+const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
 
 function getOAuth2Client() {
-  if (!process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || !process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET) {
+  if (!process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
     throw new Error('Google API credentials are not set in .env');
   }
    // This is a hack to get the redirect URI, since window is not available on the server.
    // In a real app, this should be a fixed value from your config.
   const redirectUri = process.env.NODE_ENV === 'production' 
     ? 'https://your-production-url.com/integrations'
-    : 'http://localhost:9002/integrations';
+    : 'http://localhost:3000/integrations';
 
 
   return new google.auth.OAuth2(

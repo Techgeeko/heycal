@@ -1,8 +1,10 @@
+
 "use client";
 
 import { createContext, useContext, useEffect, useState, ReactNode, useCallback } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { getGoogleAuthUrl, getGoogleAccessToken } from '@/lib/services/google-auth';
+import { toast } from 'sonner';
 
 interface CalendarContextType {
   accessToken: string | null;
@@ -58,9 +60,15 @@ export function CalendarProvider({ children }: { children: ReactNode }) {
     setLoading(true);
     try {
         const authUrl = await getGoogleAuthUrl();
-        window.location.href = authUrl;
+        if (authUrl) {
+            window.location.href = authUrl;
+        } else {
+            toast.error("Configuration Error: Could not connect to Google Calendar. The application's API credentials are not set up correctly.");
+            setLoading(false);
+        }
     } catch (error) {
         console.error("Error getting auth URL", error);
+        toast.error("Connection Error: An unexpected error occurred while trying to connect to Google Calendar.");
         setLoading(false);
     }
   };

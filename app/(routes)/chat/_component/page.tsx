@@ -15,6 +15,9 @@ import { getUpcomingEvents } from "@/lib/services/get-upcoming-events"
 import { answerQuestionAboutEvents } from "@/ai/flows/answer-question-about-events"
 import { scheduleEvent } from "@/ai/flows/schedule-events"
 import { rescheduleEvent } from "@/ai/flows/reschedule-events"
+import { findTime } from "@/ai/flows/find-time"
+import { getProactiveSuggestion } from '@/ai/flows/proactive-suggestion';
+import { scheduleGoal } from '@/ai/flows/goal-scheduling';
 
 export default function ChatComponent() {
   const { accessToken, isConnected } = useCalendar()
@@ -99,6 +102,21 @@ export default function ChatComponent() {
           const answered = await answerQuestionAboutEvents({ question: userMessage, events: JSON.stringify(events, null, 2) })
           aiResponse = answered.answer
           break
+        case "find_time": {
+          const result = await findTime({ query: userMessage, accessToken, userTimezone });
+          aiResponse = result.suggestions;
+          break;
+        }
+        case "proactive_suggestion": {
+          const result = await getProactiveSuggestion({ query: userMessage, accessToken, userTimezone });
+          aiResponse = result.suggestion;
+          break;
+        }
+        case "goal_scheduling": {
+          const result = await scheduleGoal({ goal: userMessage, accessToken, userTimezone });
+          aiResponse = result.plan;
+          break;
+        }
         case "chat":
           if (userMessage.toLowerCase().includes("hello") || userMessage.toLowerCase().includes("hi") || userMessage.toLowerCase().includes("hey")) {
             aiResponse = "Hello there! How can I assist you with your schedule today?"
@@ -107,7 +125,6 @@ export default function ChatComponent() {
           }
           break
       }
-
       append({ role: "assistant", content: aiResponse })
     } catch (err) {
       console.error("Error handling message:", err)

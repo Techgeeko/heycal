@@ -1,13 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import {
-  Card, CardContent, CardDescription, CardHeader, CardTitle
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Loader2, ExternalLink, Check, AlertCircle, RefreshCw, Calendar } from "lucide-react";
-import { toast, Toaster } from "sonner";
+import { toast } from "sonner";
 import { useCalendar } from "@/components/calendar-provider";
 
 const INTEGRATIONS = [
@@ -42,15 +40,33 @@ export default function Component() {
     loading: isConnecting
   } = useCalendar();
 
+    const handleConnect = async () => {
+    try {
+      await connect();
+      toast.success("✅ Google Calendar connected successfully.");
+    } catch (err) {
+      console.error("Connection error:", err);
+      toast.error("❌ Failed to connect to Google Calendar.");
+    }
+  };
+
+  const handleDisconnect = async () => {
+    try {
+      await disconnect();
+      toast.success("🛑 Google Calendar disconnected.");
+    } catch (err) {
+      console.error("Disconnection error:", err);
+      toast.error("⚠️ Failed to disconnect from Google Calendar.");
+    }
+  };
+
   return (
     <>
-      <Toaster position="top-right" richColors closeButton duration={3500} />
-
       {/* === INTEGRATIONS === */}
       <Card>
         <CardHeader className="border-b pb-4">
           <div className="flex flex-col space-y-1">
-            <CardTitle className="text-indigo-900">Integrations</CardTitle>
+            <CardTitle className="text-black">Integrations</CardTitle>
             <p className="text-sm text-slate-600">
               Connect your calendar services to CalSync
             </p>
@@ -60,6 +76,7 @@ export default function Component() {
         <CardContent className="space-y-4 py-6">
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {INTEGRATIONS.map((integration) => {
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
               const isGoogle = integration.id === "google";
 
               return (
@@ -91,7 +108,7 @@ export default function Component() {
                         className="w-full"
                         variant={googleConnected ? "outline" : "default"}
                         disabled={isConnecting}
-                        onClick={googleConnected ? disconnect : connect}
+                        onClick={googleConnected ? handleDisconnect : handleConnect}
                       >
                         {isConnecting ? (
                           <>

@@ -180,6 +180,7 @@ export default function SignUp() {
       await signUp.create({ firstName, lastName, emailAddress, password });
       await signUp.prepareEmailAddressVerification({ strategy: 'email_code' });
       setPendingVerification(true);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       setError(error.errors?.[0]?.message || 'Something went wrong');
     }
@@ -197,6 +198,7 @@ export default function SignUp() {
         await setActive({ session: complete.createdSessionId });
         router.push('/chat');
       }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       setError(error.errors?.[0]?.message || 'Invalid code');
     }
