@@ -72,7 +72,7 @@ export default function ChatComponent() {
           delay: 5000,
         },
         {
-          content: "Try typing: "Set a meeting tomorrow at 10am"",
+          content: 'Try typing: "Set a meeting tomorrow at 10am"',
           delay: 7000,
         },
       ]
