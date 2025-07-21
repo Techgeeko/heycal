@@ -65,9 +65,7 @@ export default function Hero() {
 
           {/* CTA */}
           <Link href="/sign-up" passHref>
-            <Button asChild className="mt-6 text-base px-6 py-2">
-              <a>Start Talking to Your Calendar</a>
-            </Button>
+            <Button asChild className="mt-6 text-base px-6 py-2"><p>Start Talking to Your Calendar</p></Button>
           </Link>
         </div>
 

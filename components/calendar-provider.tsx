@@ -1,14 +1,8 @@
-
 "use client";
 
 import { createContext, useContext, useEffect, useState, ReactNode, useCallback } from 'react';
-import { google } from 'googleapis';
-import { useRouter } from 'next/navigation';
-
-// Note: In a real app, these should come from the server and be handled securely.
-const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
-const GOOGLE_CLIENT_SECRET = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET;
-const GOOGLE_REDIRECT_URI = typeof window !== 'undefined' ? `${window.location.origin}/integrations` : '';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { getGoogleAuthUrl, getGoogleAccessToken } from '@/lib/services/google-auth';
 
 interface CalendarContextType {
   accessToken: string | null;
@@ -20,67 +14,54 @@ interface CalendarContextType {
 
 const CalendarContext = createContext<CalendarContextType | undefined>(undefined);
 
-function getOAuth2Client() {
-  if (!GOOGLE_CLIENT_ID || !GOOGLE_CLIENT_SECRET) {
-    console.error("Google API credentials are not set in .env.local");
-    return null;
-  }
-  return new google.auth.OAuth2(
-    GOOGLE_CLIENT_ID,
-    GOOGLE_CLIENT_SECRET,
-    GOOGLE_REDIRECT_URI
-  );
-}
-
 export function CalendarProvider({ children }: { children: ReactNode }) {
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const handleCallback = useCallback(async () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const code = urlParams.get('code');
+    const code = searchParams.get('code');
 
     if (code) {
       setLoading(true);
-      const oauth2Client = getOAuth2Client();
-      if (oauth2Client) {
-        try {
-          const { tokens } = await oauth2Client.getToken(code);
-          if (tokens.access_token) {
-            localStorage.setItem('google_access_token', tokens.access_token);
-            setAccessToken(tokens.access_token);
-          }
-        } catch (error) {
-          console.error('Error exchanging code for token', error);
-        } finally {
-            router.replace('/integrations');
-            setLoading(false);
+      try {
+        const token = await getGoogleAccessToken(code);
+        if (token) {
+          localStorage.setItem('google_access_token', token);
+          setAccessToken(token);
         }
+      } catch (error) {
+        console.error('Error exchanging code for token', error);
+      } finally {
+        router.replace('/integrations');
+        setLoading(false);
       }
     } else {
         setLoading(false);
     }
-  }, [router]);
+  }, [router, searchParams]);
 
   useEffect(() => {
     const storedToken = localStorage.getItem('google_access_token');
     if (storedToken) {
       setAccessToken(storedToken);
       setLoading(false);
-    } else {
+    } else if(searchParams.has('code')) {
       handleCallback();
+    } else {
+      setLoading(false);
     }
-  }, [handleCallback]);
+  }, [handleCallback, searchParams]);
 
-  const connect = () => {
-    const oauth2Client = getOAuth2Client();
-    if (oauth2Client) {
-        const authUrl = oauth2Client.generateAuthUrl({
-            access_type: 'offline',
-            scope: ['https://www.googleapis.com/auth/calendar'],
-        });
+  const connect = async () => {
+    setLoading(true);
+    try {
+        const authUrl = await getGoogleAuthUrl();
         window.location.href = authUrl;
+    } catch (error) {
+        console.error("Error getting auth URL", error);
+        setLoading(false);
     }
   };
 
