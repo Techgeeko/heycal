@@ -4,10 +4,10 @@ import { useRef, useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Sparkles, Mic, ArrowUp } from "lucide-react"
+import { Sparkles, Mic, ArrowUp, Link as LinkIcon } from "lucide-react"
 import { toast } from "sonner"
 import { useCalendar } from "@/components/calendar-provider"
-import { useChat } from "ai/react"
+import Link from "next/link"
 
 import { routeCommand } from "@/ai/flows/command-router"
 import { cancelEvent } from "@/ai/flows/cancel-events"
@@ -16,23 +16,48 @@ import { answerQuestionAboutEvents } from "@/ai/flows/answer-question-about-even
 import { scheduleEvent } from "@/ai/flows/schedule-events"
 import { rescheduleEvent } from "@/ai/flows/reschedule-events"
 import { findTime } from "@/ai/flows/find-time"
-import { getProactiveSuggestion } from '@/ai/flows/proactive-suggestion';
-import { scheduleGoal } from '@/ai/flows/goal-scheduling';
+import { getProactiveSuggestion } from '@/ai/flows/proactive-suggestion'
+import { scheduleGoal } from '@/ai/flows/goal-scheduling'
+
+interface Message {
+  id: string
+  role: "user" | "assistant"
+  content: string | React.ReactNode
+  timestamp: number
+}
+
+const ConnectCalendarMessage = () => (
+  <div className="space-y-2">
+    <p>Please connect your Google Calendar to get started.</p>
+    <Button asChild size="sm" variant="secondary">
+      <Link href="/integrations">
+        <LinkIcon className="mr-2 h-4 w-4" /> Connect Calendar
+      </Link>
+    </Button>
+  </div>
+)
 
 export default function ChatComponent() {
   const { accessToken, isConnected } = useCalendar()
-
-  const { messages, input, handleInputChange, append, isLoading, error, setInput } = useChat()
+  const [messages, setMessages] = useState<Message[]>([])
+  const [input, setInput] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const [hasWelcomed, setHasWelcomed] = useState(false)
 
+  // Auto-resize textarea
   useEffect(() => {
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto"
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
     }
-  }, [input, messages])
+  }, [input])
+
+  // Auto-scroll to bottom
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [messages])
 
   // Welcome messages
   useEffect(() => {
@@ -47,89 +72,120 @@ export default function ChatComponent() {
           delay: 5000,
         },
         {
-          content: "Try typing: “Set a meeting tomorrow at 10am”",
+          content: "Try typing: "Set a meeting tomorrow at 10am"",
           delay: 7000,
         },
       ]
 
       welcomeMessages.forEach(({ content, delay }) => {
         setTimeout(() => {
-          append({ role: "assistant", content })
+          const newMessage: Message = {
+            id: `welcome-${Date.now()}-${delay}`,
+            role: "assistant",
+            content,
+            timestamp: Date.now()
+          }
+          setMessages(prev => [...prev, newMessage])
         }, delay)
       })
     }
-  }, [messages, hasWelcomed, append])
+  }, [messages, hasWelcomed])
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setInput(e.target.value)
+  }
+
+  const addMessage = (role: "user" | "assistant", content: string | React.ReactNode) => {
+    const newMessage: Message = {
+      id: `${role}-${Date.now()}-${Math.random()}`,
+      role,
+      content,
+      timestamp: Date.now()
+    }
+    setMessages(prev => [...prev, newMessage])
+  }
 
   const handleCustomSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const userMessage = input.trim()
-    if (!userMessage) return
+    if (!userMessage || isLoading) return
 
-    // Append user message
-    append({ role: "user", content: userMessage })
+    // Add user message
+    addMessage("user", userMessage)
     setInput("")
-
-    if (!isConnected || !accessToken) {
-      append({
-        role: "assistant",
-        content: "Please connect your Google Calendar to get started. [Go to Integrations](/integrations)"
-      })
-      return
-    }
-
-    const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone
+    setIsLoading(true)
 
     try {
+      if (!isConnected || !accessToken) {
+        addMessage("assistant", <ConnectCalendarMessage />)
+        return
+      }
+
+      const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone
       const { command } = await routeCommand({ message: userMessage })
 
-      let aiResponse = "I’m sorry, I didn’t understand that. I can help schedule, reschedule, cancel, or answer questions about your events."
+      let aiResponse: string | React.ReactNode = "I'm sorry, I didn't understand that. I can help schedule, reschedule, cancel, or answer questions about your events."
 
       switch (command) {
-        case "schedule":
-          const scheduled = await scheduleEvent({ description: userMessage, accessToken, userTimezone })
-          aiResponse = scheduled.message
+        case "schedule": {
+          const result = await scheduleEvent({ description: userMessage, accessToken, userTimezone })
+          aiResponse = result.message
           break
-        case "cancel":
-          const cancelled = await cancelEvent({ command: userMessage, accessToken })
-          aiResponse = cancelled.message
+        }
+        case "cancel": {
+          const result = await cancelEvent({ command: userMessage, accessToken })
+          aiResponse = result.message
           break
-        case "reschedule":
-          const rescheduled = await rescheduleEvent({ command: userMessage, accessToken, userTimezone })
-          aiResponse = rescheduled.message
+        }
+        case "reschedule": {
+          const result = await rescheduleEvent({ command: userMessage, accessToken, userTimezone })
+          aiResponse = result.message
           break
-        case "view_events":
+        }
+        case "view_events": {
           const events = await getUpcomingEvents(accessToken)
-          const answered = await answerQuestionAboutEvents({ question: userMessage, events: JSON.stringify(events, null, 2) })
-          aiResponse = answered.answer
+          const result = await answerQuestionAboutEvents({ 
+            question: userMessage, 
+            events: JSON.stringify(events, null, 2) 
+          })
+          aiResponse = result.answer
           break
+        }
         case "find_time": {
-          const result = await findTime({ query: userMessage, accessToken, userTimezone });
-          aiResponse = result.suggestions;
-          break;
+          const result = await findTime({ query: userMessage, accessToken, userTimezone })
+          aiResponse = result.suggestions
+          break
         }
         case "proactive_suggestion": {
-          const result = await getProactiveSuggestion({ query: userMessage, accessToken, userTimezone });
-          aiResponse = result.suggestion;
-          break;
+          const result = await getProactiveSuggestion({ query: userMessage, accessToken, userTimezone })
+          aiResponse = result.suggestion
+          break
         }
         case "goal_scheduling": {
-          const result = await scheduleGoal({ goal: userMessage, accessToken, userTimezone });
-          aiResponse = result.plan;
-          break;
+          const result = await scheduleGoal({ goal: userMessage, accessToken, userTimezone })
+          aiResponse = result.plan
+          break
         }
-        case "chat":
-          if (userMessage.toLowerCase().includes("hello") || userMessage.toLowerCase().includes("hi") || userMessage.toLowerCase().includes("hey")) {
+        case "chat": {
+          if (userMessage.toLowerCase().includes("hello") || 
+              userMessage.toLowerCase().includes("hi") || 
+              userMessage.toLowerCase().includes("hey")) {
             aiResponse = "Hello there! How can I assist you with your schedule today?"
           } else {
             aiResponse = "I can help with scheduling, rescheduling, and canceling events. What would you like to do?"
           }
           break
+        }
       }
-      append({ role: "assistant", content: aiResponse })
+
+      addMessage("assistant", aiResponse)
+
     } catch (err) {
       console.error("Error handling message:", err)
       toast.error("Something went wrong: I had trouble processing your request. Please try again.")
-      append({ role: "assistant", content: "Oops! Something went wrong. Try again later." })
+      addMessage("assistant", "Oops! Something went wrong. Try again later.")
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -163,13 +219,15 @@ export default function ChatComponent() {
                         : "bg-neutral-100 text-neutral-900 border border-neutral-200"
                     }`}
                   >
-                    {m.content.startsWith("Try typing:") ? (
+                    {typeof m.content === 'string' && m.content.startsWith("Try typing:") ? (
                       <div className="px-4 py-2 bg-white text-neutral-900 rounded-full flex items-center gap-2 text-sm font-medium shadow border border-neutral-200">
                         <Sparkles className="h-4 w-4 text-blue-600 animate-pulse" />
                         <span className="italic">{m.content}</span>
                       </div>
-                    ) : (
+                    ) : typeof m.content === 'string' ? (
                       <p className="text-sm">{m.content}</p>
+                    ) : (
+                      <div className="text-sm">{m.content}</div>
                     )}
                   </div>
                 </motion.div>
@@ -185,8 +243,6 @@ export default function ChatComponent() {
             </div>
           )}
 
-          {error && <div className="text-red-500 text-sm mt-2">Error: {error.message}</div>}
-
           <div ref={messagesEndRef} />
         </ScrollArea>
       </div>
@@ -199,11 +255,11 @@ export default function ChatComponent() {
               ref={textareaRef}
               value={input}
               onChange={handleInputChange}
-              placeholder={"Ask a follow-up..."}
+              placeholder={isConnected ? "e.g., Schedule a meeting for 2pm tomorrow" : "Ask a follow-up..."}
               rows={1}
               className="min-h-[24px] resize-none overflow-hidden bg-transparent text-sm focus:outline-none disabled:cursor-not-allowed"
               disabled={isLoading}
-              aria-label={"Type your message"}
+              aria-label="Type your message"
             />
             <div className="flex items-center justify-between pt-2">
               <Button
