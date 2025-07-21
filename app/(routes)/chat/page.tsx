@@ -1,4 +1,3 @@
-// app/chat/page.tsx
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { Loader2 } from "lucide-react";
