@@ -1,6 +1,5 @@
-"use client";
+"use client"
 
-import type { Metadata } from "next";
 import ChatComponent from './_component/page';
 import { useCalendar } from "@/components/calendar-provider";
 import { Loader2 } from "lucide-react";

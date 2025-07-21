@@ -77,7 +77,7 @@ export default function ChatComponent() {
         },
       ]
 
-      welcomeMessa.forEach(({ content, delay }) => {
+      welcomeMessages.forEach(({ content, delay }) => {
         setTimeout(() => {
           const newMessage: Message = {
             id: `welcome-${Date.now()}-${delay}`,
