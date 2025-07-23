@@ -21,6 +21,7 @@ const navigationItems: NavigationItem[] = [
 
 export default function AppSidebar() {
   const pathname = usePathname();
+  // eslint-dis
   const [copied, setCopied] = useState(false);
 
   const handleInvite = async () => {
@@ -87,4 +88,3 @@ export default function AppSidebar() {
       </nav>
     </aside>
   );
-}
