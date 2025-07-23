@@ -2,10 +2,8 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
 import Image from 'next/image';
 import { History, Plug2, MessageCircle } from 'lucide-react';
-import { toast } from 'sonner';
 
 interface NavigationItem {
   name: string;
