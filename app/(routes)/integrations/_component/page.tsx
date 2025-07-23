@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Loader2, ExternalLink, Check, AlertCircle, RefreshCw, Calendar } from "lucide-react";
+import { Loader2, ExternalLink } from "lucide-react";
 import { toast } from "sonner";
 import { useCalendar } from "@/components/calendar-provider";
 
@@ -105,7 +105,7 @@ export default function Component() {
                   {integration.active && (
                     <CardContent className="pt-0 space-y-2">
                       <Button
-                        className="w-full"
+                        className="w-full cursor-pointer"
                         variant={googleConnected ? "outline" : "default"}
                         disabled={isConnecting}
                         onClick={googleConnected ? handleDisconnect : handleConnect}
@@ -141,7 +141,7 @@ export default function Component() {
       </Card>
 
       {/* === SYNC MANAGER === */}
-      <Card className="mt-10 space-y-6">
+      {/* <Card className="mt-10 space-y-6">
         <CardHeader className="border-b pb-4">
           <div className="flex flex-col space-y-1">
             <CardTitle className="text-indigo-900">Sync Manager</CardTitle>
@@ -210,7 +210,7 @@ export default function Component() {
             </Card>
           </div>        
         </CardContent>
-      </Card>
+      </Card> */}
     </>
   );
 }

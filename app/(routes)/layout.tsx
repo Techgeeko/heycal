@@ -1,14 +1,13 @@
 'use client'
 
 import { usePathname } from "next/navigation"
-import { useState, useEffect, Suspense } from "react"
+import { useState, useEffect } from "react"
 import type React from "react"
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbPage, BreadcrumbSeparator, BreadcrumbLink } from "@/components/ui/breadcrumb"
-import { XIcon, Loader2 } from "lucide-react"
+import { XIcon } from "lucide-react"
 import AppSidebar from "@/components/appSidebar"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import Link from "next/link"
-import { CalendarProvider } from "@/components/calendar-provider"
 
 // Logic to display active page but not repeat duplicate page for dashboard
 const formatPageName = (path: string) => {
@@ -19,17 +18,6 @@ const formatPageName = (path: string) => {
   // Capitalize the first letter
   return lastPart.charAt(0).toUpperCase() + lastPart.slice(1);
 };
-
-// Loading component for CalendarProvider Suspense
-const CalendarProviderFallback = ({ children }: { children: React.ReactNode }) => (
-  <div className="container mx-auto py-6 px-4 md:px-6 space-y-6">
-    <div className="flex items-center justify-center py-8">
-      <Loader2 className="h-6 w-6 animate-spin text-gray-600" />
-      <span className="ml-2 text-gray-600">Loading calendar...</span>
-    </div>
-    {children}
-  </div>
-);
 
 export default function AuthenticatedLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
@@ -210,13 +198,9 @@ export default function AuthenticatedLayout({ children }: { children: React.Reac
         </header>
         
         <main className="flex-1 overflow-auto">
-          <Suspense fallback={<CalendarProviderFallback>{children}</CalendarProviderFallback>}>
-            <CalendarProvider>
-              <div className="container mx-auto py-6 px-4 md:px-6 space-y-6">
-                {children}
-              </div>
-            </CalendarProvider>
-          </Suspense>
+            <div>
+              {children}
+            </div>
         </main>
       </div>
     </div>

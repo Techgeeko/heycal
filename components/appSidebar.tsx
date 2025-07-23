@@ -68,7 +68,7 @@ export default function AppSidebar() {
         ))}
 
         {/* Invitation Block */}
-        <div className="mt-8 space-y-3 p-4 bg-stone-900 border border-stone-800 rounded-lg">
+        {/* <div className="mt-8 space-y-3 p-4 bg-stone-900 border border-stone-800 rounded-lg">
           <p className="text-[11px] font-medium tracking-wider text-stone-500">Invitation</p>
           <div className="flex items-center justify-between text-sm">
             <span>Invited</span>
@@ -83,7 +83,7 @@ export default function AppSidebar() {
           >
             {copied ? 'Copied!' : 'Share HeyCal'}
           </button>
-        </div>
+        </div> */}
       </nav>
     </aside>
   );

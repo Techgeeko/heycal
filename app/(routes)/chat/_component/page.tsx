@@ -71,10 +71,10 @@ export default function ChatComponent() {
           content: "Ask me to schedule events, set reminders, or answer calendar-related questions.",
           delay: 5000,
         },
-        {
-          content: 'Try typing: "Set a meeting tomorrow at 10am"',
-          delay: 7000,
-        },
+        // {
+        //   content: 'Try typing: "Set a meeting tomorrow at 10am"',
+        //   delay: 7000,
+        // },
       ]
 
       welcomeMessages.forEach(({ content, delay }) => {
@@ -216,7 +216,7 @@ export default function ChatComponent() {
                     className={`p-3 rounded-lg ${
                       m.role === "user"
                         ? "bg-neutral-900 text-white"
-                        : "bg-neutral-100 text-neutral-900 border border-neutral-200"
+                        : "bg-white text-neutral-900 border border-neutral-200"
                     }`}
                   >
                     {typeof m.content === 'string' && m.content.startsWith("Try typing:") ? (
