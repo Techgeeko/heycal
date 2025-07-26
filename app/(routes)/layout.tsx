@@ -8,6 +8,7 @@ import { XIcon } from "lucide-react"
 import AppSidebar from "@/components/appSidebar"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import Link from "next/link"
+import { CalendarProvider } from "@/components/calendar-provider"
 
 // Logic to display active page but not repeat duplicate page for dashboard
 const formatPageName = (path: string) => {
@@ -198,9 +199,11 @@ export default function AuthenticatedLayout({ children }: { children: React.Reac
         </header>
         
         <main className="flex-1 overflow-auto">
+          <CalendarProvider>
             <div>
               {children}
             </div>
+          </CalendarProvider>
         </main>
       </div>
     </div>
