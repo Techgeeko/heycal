@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <g id="heycal" transform="translate(-1743 917)">
+    <rect id="Rectangle_18" data-name="Rectangle 18" width="512" height="512" rx="65" transform="translate(1743 -917)"/>
+    <g id="Group_6" data-name="Group 6" transform="translate(-3 -1)">
+      <path id="Union_1" data-name="Union 1" d="M67.9,424.867A129.886,129.886,0,0,1,1.5,443,130.5,130.5,0,1,1,132,312.5a129.938,129.938,0,0,1-14.548,59.937l19.066,70.816Z" transform="translate(1998 -973)" fill="#fff"/>
+      <path id="heycal_star_icon" d="M92.927,20l19.447,56.215,53.48,20.442L112.374,117.1,92.927,173.312,73.48,117.1,20,96.656,73.48,76.215Z" transform="translate(1909 -757)"/>
+    </g>
+  </g>
+</svg>
