@@ -55,9 +55,9 @@ export default function ChatComponent() {
   }, [input])
 
   // Auto-scroll to bottom
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }, [messages])
+  // useEffect(() => {
+  //   messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  // }, [messages])
 
   // Welcome messages
   useEffect(() => {

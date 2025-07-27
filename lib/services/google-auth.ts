@@ -9,7 +9,7 @@ function getOAuth2Client() {
   }
   
   const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
-  const redirectUri = `${appUrl}/integrations`;
+  const redirectUri = `${appUrl}/chat`;
 
   return new google.auth.OAuth2(
     process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
