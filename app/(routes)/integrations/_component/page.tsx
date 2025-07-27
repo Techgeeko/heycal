@@ -7,6 +7,50 @@ import { Badge } from "@/components/ui/badge";
 import { Loader2, ExternalLink } from "lucide-react";
 import { toast } from "sonner";
 import { useCalendar } from "@/components/calendar-provider";
+import { getGoogleAccessToken } from "@/lib/services/google-auth";
+import { useRouter, useSearchParams } from 'next/navigation';
+import { Suspense, useEffect } from "react";
+
+function GoogleCallbackHandler() {
+  const { setAccessToken, setLoading } = useCalendar();
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  useEffect(() => {
+    const code = searchParams.get('code');
+    const error = searchParams.get('error');
+
+    if (error) {
+      toast.error(`Authentication Failed: Google authentication failed: ${error}`);
+      router.replace('/integrations');
+      setLoading(false);
+      return;
+    }
+
+    if (code) {
+      const exchangeCodeForToken = async () => {
+        setLoading(true);
+        try {
+          const token = await getGoogleAccessToken(code);
+          if (token) {
+            setAccessToken(token);
+          } else {
+            throw new Error("Received an empty token.");
+          }
+        } catch (err) {
+          console.error('Error exchanging code for token', err);
+           toast("Authentication Failed: Could not get access token from Google.");
+        } finally {
+          router.replace('/integrations');
+          setLoading(false);
+        }
+      };
+      exchangeCodeForToken();
+    }
+  }, [searchParams, router, setAccessToken, setLoading, toast]);
+
+  return null; // This component doesn't render anything itself
+}
 
 const INTEGRATIONS = [
   {
@@ -65,6 +109,9 @@ export default function Component() {
       {/* === INTEGRATIONS === */}
       <Card>
         <CardHeader className="border-b pb-4">
+          <Suspense fallback={null}>
+            <GoogleCallbackHandler />
+          </Suspense>
           <div className="flex flex-col space-y-1">
             <CardTitle className="text-black">Integrations</CardTitle>
             <p className="text-sm text-slate-600">

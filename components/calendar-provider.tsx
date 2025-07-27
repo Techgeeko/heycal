@@ -1,8 +1,7 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState, ReactNode, useCallback } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { getGoogleAuthUrl, getGoogleAccessToken } from '@/lib/services/google-auth';
+import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import { getGoogleAuthUrl } from '@/lib/services/google-auth';
 import { toast } from 'sonner';
 
 interface CalendarContextType {
@@ -11,6 +10,8 @@ interface CalendarContextType {
   loading: boolean;
   connect: () => void;
   disconnect: () => void;
+  setAccessToken: (token: string | null) => void;
+  setLoading: (loading: boolean) => void;
 }
 
 const CalendarContext = createContext<CalendarContextType | undefined>(undefined);
@@ -18,42 +19,15 @@ const CalendarContext = createContext<CalendarContextType | undefined>(undefined
 export function CalendarProvider({ children }: { children: ReactNode }) {
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
-  const router = useRouter();
-  const searchParams = useSearchParams();
-
-  const handleCallback = useCallback(async () => {
-    const code = searchParams.get('code');
-
-    if (code) {
-      setLoading(true);
-      try {
-        const token = await getGoogleAccessToken(code);
-        if (token) {
-          localStorage.setItem('google_access_token', token);
-          setAccessToken(token);
-        }
-      } catch (error) {
-        console.error('Error exchanging code for token', error);
-      } finally {
-        router.replace('/integrations');
-        setLoading(false);
-      }
-    } else {
-        setLoading(false);
-    }
-  }, [router, searchParams]);
 
   useEffect(() => {
+    setLoading(true);
     const storedToken = localStorage.getItem('google_access_token');
     if (storedToken) {
       setAccessToken(storedToken);
-      setLoading(false);
-    } else if(searchParams.has('code')) {
-      handleCallback();
-    } else {
-      setLoading(false);
     }
-  }, [handleCallback, searchParams]);
+    setLoading(false);
+  }, []);
 
   const connect = async () => {
     setLoading(true);
@@ -82,7 +56,9 @@ export function CalendarProvider({ children }: { children: ReactNode }) {
     isConnected: !!accessToken,
     loading,
     connect, 
-    disconnect 
+    disconnect,
+    setAccessToken,
+    setLoading, 
   };
 
   return (
