@@ -11,7 +11,7 @@ function getOAuth2Client() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
   // const redirectUri = `${appUrl}/chat`;
-  const redirectUri = 'https://heycal.vercel.app/chat'
+  const redirectUri = 'https://heycal.vercel.app/integrations'
 
   return new google.auth.OAuth2(
     process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
