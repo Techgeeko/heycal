@@ -23,6 +23,7 @@ export function CalendarProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     setLoading(true);
     const storedToken = localStorage.getItem('google_access_token');
+    console.log("Stored token in localStorage:", storedToken); // Added console log
     if (storedToken) {
       setAccessToken(storedToken);
     }
@@ -33,6 +34,7 @@ export function CalendarProvider({ children }: { children: ReactNode }) {
     setLoading(true);
     try {
         const authUrl = await getGoogleAuthUrl();
+         console.log("Generated auth URL:", authUrl);
         if (authUrl) {
             window.location.href = authUrl;
         } else {
