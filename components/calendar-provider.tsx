@@ -3,32 +3,46 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { getGoogleAuthUrl } from '@/lib/services/google-auth';
 import { toast } from 'sonner';
+import type { Credentials } from 'google-auth-library';
 
 interface CalendarContextType {
-  accessToken: string | null;
+  tokens: Credentials | null;
   isConnected: boolean;
   loading: boolean;
   connect: () => void;
   disconnect: () => void;
-  setAccessToken: (token: string | null) => void;
+  setTokens: (tokens: Credentials | null) => void;
   setLoading: (loading: boolean) => void;
 }
 
 const CalendarContext = createContext<CalendarContextType | undefined>(undefined);
 
 export function CalendarProvider({ children }: { children: ReactNode }) {
-  const [accessToken, setAccessToken] = useState<string | null>(null);
+  const [tokens, setTokensState] = useState<Credentials | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setLoading(true);
-    const storedToken = localStorage.getItem('google_access_token');
-    console.log("Stored token in localStorage:", storedToken); // Added console log
-    if (storedToken) {
-      setAccessToken(storedToken);
+    const storedTokens = localStorage.getItem('google_tokens');
+    if (storedTokens) {
+      try {
+        setTokensState(JSON.parse(storedTokens));
+      } catch (e) {
+        console.error("Failed to parse stored tokens", e);
+        localStorage.removeItem('google_tokens');
+      }
     }
     setLoading(false);
   }, []);
+
+  const setTokens = (newTokens: Credentials | null) => {
+    if (newTokens) {
+        localStorage.setItem('google_tokens', JSON.stringify(newTokens));
+    } else {
+        localStorage.removeItem('google_tokens');
+    }
+    setTokensState(newTokens);
+  }
 
   const connect = async () => {
     setLoading(true);
@@ -49,17 +63,16 @@ export function CalendarProvider({ children }: { children: ReactNode }) {
   };
 
   const disconnect = () => {
-    localStorage.removeItem('google_access_token');
-    setAccessToken(null);
+    setTokens(null);
   };
   
   const value = { 
-    accessToken, 
-    isConnected: !!accessToken,
+    tokens, 
+    isConnected: !!tokens,
     loading,
     connect, 
     disconnect,
-    setAccessToken,
+    setTokens,
     setLoading, 
   };
 

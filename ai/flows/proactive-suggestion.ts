@@ -11,10 +11,11 @@
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
 import { listEvents } from '@/lib/services/google-calendar';
+import type { Credentials } from 'google-auth-library';
 
 const ProactiveSuggestionInputSchema = z.object({
   query: z.string().describe("The user's question or concern about their schedule."),
-  accessToken: z.string().describe('The user\'s Google Calendar access token.'),
+  tokens: z.custom<Credentials>().describe('The user\'s Google Calendar credentials object.'),
   userTimezone: z.string().describe('The IANA timezone of the user (e.g., "America/New_York").'),
 });
 export type ProactiveSuggestionInput = z.infer<typeof ProactiveSuggestionInputSchema>;
@@ -49,7 +50,7 @@ const proactiveSuggestionFlow = ai.defineFlow(
   },
   async (input) => {
     try {
-        const events = await listEvents(input.accessToken);
+        const events = await listEvents(input.tokens);
         const { output } = await generateSuggestionPrompt({
             query: input.query,
             events: JSON.stringify(events, null, 2),

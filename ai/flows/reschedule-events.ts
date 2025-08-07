@@ -1,4 +1,3 @@
-
 'use server';
 
 /**
@@ -13,10 +12,11 @@ import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 import { listEvents, rescheduleEvent as rescheduleCalendarEvent } from '@/lib/services/google-calendar';
 import { fromZonedTime } from 'date-fns-tz';
+import type { Credentials } from 'google-auth-library';
 
 const RescheduleEventInputSchema = z.object({
   command: z.string().describe('The user\'s command to reschedule an event.'),
-  accessToken: z.string().describe('The user\'s Google Calendar access token.'),
+  tokens: z.custom<Credentials>().describe('The user\'s Google Calendar credentials object.'),
   userTimezone: z.string().describe('The IANA timezone of the user (e.g., "America/New_York").'),
 });
 export type RescheduleEventInput = z.infer<typeof RescheduleEventInputSchema>;
@@ -68,14 +68,14 @@ const rescheduleEventFlow = ai.defineFlow(
             return { success: false, message: "I'm not sure which event you want to move or when to move it to. Could you be more specific?" };
         }
 
-        const events = await listEvents(input.accessToken);
+        const events = await listEvents(input.tokens);
         const eventToReschedule = events.find(e => e.summary?.toLowerCase().includes(details.eventName.toLowerCase()));
 
         if (!eventToReschedule || !eventToReschedule.id) {
             return { success: false, message: `I couldn't find an event called "${details.eventName}" to reschedule.` };
         }
 
-        const rescheduledEvent = await rescheduleCalendarEvent(input.accessToken, eventToReschedule.id, details.newStartTime, details.newEndTime);
+        const rescheduledEvent = await rescheduleCalendarEvent(input.tokens, eventToReschedule.id, details.newStartTime, details.newEndTime);
 
         if (rescheduledEvent) {
             const startTime = fromZonedTime(details.newStartTime, input.userTimezone);

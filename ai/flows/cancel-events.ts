@@ -11,11 +11,11 @@
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 import { deleteEvent, listEvents } from '@/lib/services/google-calendar';
-import type { calendar_v3 } from 'googleapis';
+import type { Credentials } from 'google-auth-library';
 
 const CancelEventInputSchema = z.object({
   command: z.string().describe('The user\'s command to cancel an event.'),
-  accessToken: z.string().describe('The user\'s Google Calendar access token.'),
+  tokens: z.custom<Credentials>().describe('The user\'s Google Calendar credentials object.'),
 });
 export type CancelEventInput = z.infer<typeof CancelEventInputSchema>;
 
@@ -55,14 +55,14 @@ const cancelEventFlow = ai.defineFlow(
             return { success: false, message: "I couldn't figure out which event you want to cancel. Can you be more specific?" };
         }
 
-        const events = await listEvents(input.accessToken);
+        const events = await listEvents(input.tokens);
         const eventToCancel = events.find(event => event.summary?.toLowerCase().includes(output.eventName.toLowerCase()));
 
         if (!eventToCancel || !eventToCancel.id) {
             return { success: false, message: `I couldn't find an event called "${output.eventName}" on your calendar.` };
         }
 
-        const success = await deleteEvent(input.accessToken, eventToCancel.id);
+        const success = await deleteEvent(input.tokens, eventToCancel.id);
         if (success) {
             return { success: true, message: `OK, I've cancelled "${eventToCancel.summary}".` };
         } else {

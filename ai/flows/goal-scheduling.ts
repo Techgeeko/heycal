@@ -11,10 +11,11 @@
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
 import { listEvents } from '@/lib/services/google-calendar';
+import type { Credentials } from 'google-auth-library';
 
 const ScheduleGoalInputSchema = z.object({
   goal: z.string().describe("The user's high-level goal."),
-  accessToken: z.string().describe('The user\'s Google Calendar access token.'),
+  tokens: z.custom<Credentials>().describe('The user\'s Google Calendar credentials object.'),
   userTimezone: z.string().describe('The IANA timezone of the user (e.g., "America/New_York").'),
 });
 export type ScheduleGoalInput = z.infer<typeof ScheduleGoalInputSchema>;
@@ -58,7 +59,7 @@ const scheduleGoalFlow = ai.defineFlow(
   },
   async (input) => {
     try {
-        const events = await listEvents(input.accessToken);
+        const events = await listEvents(input.tokens);
         const referenceTime = new Date().toISOString();
 
         const { output } = await generatePlanPrompt({

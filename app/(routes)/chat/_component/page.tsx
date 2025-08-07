@@ -38,7 +38,7 @@ const ConnectCalendarMessage = () => (
 )
 
 export default function ChatComponent() {
-  const { accessToken, isConnected } = useCalendar()
+  const { tokens, isConnected } = useCalendar()
   const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState("")
   const [isLoading, setIsLoading] = useState(false)
@@ -116,7 +116,7 @@ export default function ChatComponent() {
     setIsLoading(true)
 
     try {
-      if (!isConnected || !accessToken) {
+      if (!isConnected || !tokens) {
         addMessage("assistant", <ConnectCalendarMessage />)
         return
       }
@@ -128,22 +128,22 @@ export default function ChatComponent() {
 
       switch (command) {
         case "schedule": {
-          const result = await scheduleEvent({ description: userMessage, accessToken, userTimezone })
+          const result = await scheduleEvent({ description: userMessage, tokens, userTimezone })
           aiResponse = result.message
           break
         }
         case "cancel": {
-          const result = await cancelEvent({ command: userMessage, accessToken })
+          const result = await cancelEvent({ command: userMessage, tokens })
           aiResponse = result.message
           break
         }
         case "reschedule": {
-          const result = await rescheduleEvent({ command: userMessage, accessToken, userTimezone })
+          const result = await rescheduleEvent({ command: userMessage, tokens, userTimezone })
           aiResponse = result.message
           break
         }
         case "view_events": {
-          const events = await getUpcomingEvents(accessToken)
+          const events = await getUpcomingEvents(tokens)
           const result = await answerQuestionAboutEvents({ 
             question: userMessage, 
             events: JSON.stringify(events, null, 2) 
@@ -152,17 +152,17 @@ export default function ChatComponent() {
           break
         }
         case "find_time": {
-          const result = await findTime({ query: userMessage, accessToken, userTimezone })
+          const result = await findTime({ query: userMessage, tokens, userTimezone })
           aiResponse = result.suggestions
           break
         }
         case "proactive_suggestion": {
-          const result = await getProactiveSuggestion({ query: userMessage, accessToken, userTimezone })
+          const result = await getProactiveSuggestion({ query: userMessage, tokens, userTimezone })
           aiResponse = result.suggestion
           break
         }
         case "goal_scheduling": {
-          const result = await scheduleGoal({ goal: userMessage, accessToken, userTimezone })
+          const result = await scheduleGoal({ goal: userMessage, tokens, userTimezone })
           aiResponse = result.plan
           break
         }

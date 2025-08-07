@@ -1,5 +1,6 @@
 import { listEvents } from './google-calendar';
 import { format } from 'date-fns';
+import type { Credentials } from 'google-auth-library';
 
 export type CalendarEvent = {
   id: string;
@@ -8,9 +9,9 @@ export type CalendarEvent = {
   date: string;
 };
 
-export async function getUpcomingEvents(accessToken: string): Promise<CalendarEvent[]> {
+export async function getUpcomingEvents(tokens: Credentials): Promise<CalendarEvent[]> {
   try {
-    const googleEvents = await listEvents(accessToken);
+    const googleEvents = await listEvents(tokens);
 
     if (!googleEvents) {
       return [];

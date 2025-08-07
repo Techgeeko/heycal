@@ -1,4 +1,3 @@
-
 'use server';
 
 /**
@@ -13,10 +12,11 @@ import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 import { createEvent } from '@/lib/services/google-calendar';
 import { fromZonedTime } from 'date-fns-tz';
+import type { Credentials } from 'google-auth-library';
 
 const ScheduleEventInputSchema = z.object({
   description: z.string().describe('The user\'s request to schedule an event.'),
-  accessToken: z.string().describe('The user\'s Google Calendar access token.'),
+  tokens: z.custom<Credentials>().describe('The user\'s Google Calendar credentials object.'),
   userTimezone: z.string().describe('The IANA timezone of the user (e.g., "America/New_York").'),
 });
 export type ScheduleEventInput = z.infer<typeof ScheduleEventInputSchema>;
@@ -66,7 +66,7 @@ const scheduleEventFlow = ai.defineFlow(
         return { success: false, message: "I'm sorry, I couldn't figure out the details for that event. Could you be a bit more specific about the title and time?" };
       }
 
-      const createdEvent = await createEvent(input.accessToken, {
+      const createdEvent = await createEvent(input.tokens, {
         summary: eventDetails.title,
         start: { dateTime: eventDetails.startTime, timeZone: input.userTimezone },
         end: { dateTime: eventDetails.endTime, timeZone: input.userTimezone },

@@ -12,10 +12,11 @@ import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
 import { findFreeTimeSlots } from '@/lib/services/google-calendar';
 import { add, endOfDay, startOfToday } from 'date-fns';
+import type { Credentials } from 'google-auth-library';
 
 const FindTimeInputSchema = z.object({
   query: z.string().describe("The user's natural language request for finding a time slot."),
-  accessToken: z.string().describe('The user\'s Google Calendar access token.'),
+  tokens: z.custom<Credentials>().describe('The user\'s Google Calendar credentials object.'),
   userTimezone: z.string().describe('The IANA timezone of the user (e.g., "America/New_York").'),
 });
 export type FindTimeInput = z.infer<typeof FindTimeInputSchema>;
@@ -88,7 +89,7 @@ const findTimeFlow = ai.defineFlow(
         const searchEnd = timeRequest.end || endOfDay(add(new Date(), { weeks: 2 })).toISOString();
 
 
-        const freeSlots = await findFreeTimeSlots(input.accessToken, {
+        const freeSlots = await findFreeTimeSlots(input.tokens, {
             timeMin: searchStart,
             timeMax: searchEnd,
             durationMinutes: timeRequest.duration,

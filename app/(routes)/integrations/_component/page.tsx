@@ -12,7 +12,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect } from "react";
 
 function GoogleCallbackHandler() {
-  const { setAccessToken, setLoading } = useCalendar();
+  const { setTokens, setLoading } = useCalendar();
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -31,23 +31,24 @@ function GoogleCallbackHandler() {
       const exchangeCodeForToken = async () => {
         setLoading(true);
         try {
-          const token = await getGoogleAccessToken(code);
-          if (token) {
-            setAccessToken(token);
+          const tokens = await getGoogleAccessToken(code);
+          if (tokens) {
+            setTokens(tokens);
           } else {
             throw new Error("Received an empty token.");
           }
         } catch (err) {
           console.error('Error exchanging code for token', err);
            toast("Authentication Failed: Could not get access token from Google.");
+           // On failure, just clean up the URL on the integrations page
+           router.replace('/integrations');
         } finally {
-          router.replace('/integrations');
           setLoading(false);
         }
       };
       exchangeCodeForToken();
     }
-  }, [searchParams, router, setAccessToken, setLoading, toast]);
+  }, [searchParams, router, setTokens, setLoading, toast]);
 
   return null; // This component doesn't render anything itself
 }
